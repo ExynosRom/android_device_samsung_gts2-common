@@ -1,5 +1,4 @@
 LOCAL_PATH := device/samsung/gts2-common
-DEVICE_PATH := device/samsung/gts2-common
 
 # Platform
 TARGET_SLSI_VARIANT := cm
@@ -7,45 +6,29 @@ TARGET_SLSI_VARIANT := cm
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
-# Extracted with libbootimg
+# Kernel
 BOARD_KERNEL_PAGESIZE := 2048
-#BOARD_KERNEL_SEPARATED_DT := true
-#TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
+BOARD_KERNEL_SEPARATED_DT := true
+TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH += $(LOCAL_PATH)/include
 
 
-BLOCK_BASED_OTA:= false
-
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
-# Per LineageOS required...
 TARGET_SCREEN_HEIGHT := 2048
 TARGET_SCREEN_WIDTH := 1536
 
 # Recovery
-#RECOVERY_VARIANT := twrp
 BOARD_HAS_DOWNLOAD_MODE := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/ramdisk/fstab.universal5433
 
-# TWRP
-ifeq ($(RECOVERY_VARIANT),twrp)
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/twrp.fstab
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
-TW_BRIGHTNESS_PATH := /sys/class/backlight/panel/brightness
-TW_MAX_BRIGHTNESS := 255
-TW_NO_REBOOT_BOOTLOADER := true
-TW_INCLUDE_CRYPTO := true
-TW_HAS_DOWNLOAD_MODE := true
-TW_NO_EXFAT_FUSE := true
-TW_EXCLUDE_SUPERSU := true
-endif
-
 # Sensors
- TARGET_NO_SENSOR_PERMISSION_CHECK := true
- #TARGET_SEC_FP_HAL_VARIANT := bauth
+TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
 # F2FS support
 TARGET_USERIMAGES_USE_F2FS := true
@@ -59,8 +42,8 @@ BOARD_SECCOMP_POLICY := device/samsung/gts2-common/seccomp
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_CUSTOM_BT_CONFIG := $(DEVICE_PATH)/bluetooth/libbt_vndcfg.txt
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
+BOARD_CUSTOM_BT_CONFIG := $(LOCAL_PATH)/bluetooth/libbt_vndcfg.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
 # Macloader
 BOARD_HAVE_SAMSUNG_WIFI := true
@@ -87,7 +70,7 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 # Hardware
-BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw
+BOARD_HARDWARE_CLASS += $(LOCAL_PATH)/cmhw
 BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
 
 # Charger/Healthd
@@ -167,10 +150,9 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
-#BOARD_KERNEL_CMDLINE := The bootloader ignores the cmdline from the boot.img
 
 # Kernel
-TARGET_KERNEL_SOURCE := kernel/samsung/gts2
+TARGET_KERNEL_SOURCE := kernel/samsung/exynos5433
 KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
 
 # Extended filesystem support
@@ -195,3 +177,6 @@ TARGET_CPU_VARIANT := cortex-a53.a57
 TARGET_BOOTLOADER_BOARD_NAME := universal5433
 
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
+
+# Ant+
+BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"

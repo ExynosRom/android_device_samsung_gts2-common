@@ -18,9 +18,5 @@
     {
         "repository": "android_hardware_samsung_slsi-cm_openmax",
         "target_path": "hardware/samsung_slsi-cm/openmax"
-    },
-    {
-        "repository": "android_kernel_samsung_gts2",
-        "target_path": "kernel/samsung/gts2"
     }
 ]
