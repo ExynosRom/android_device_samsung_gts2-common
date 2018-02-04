@@ -64,21 +64,17 @@ WIFI_DRIVER_FW_PATH_AP           := "/etc/wifi/bcmdhd_apsta.bin"
 # Camera
 BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
 
-# Charger/Healthd
-BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
-BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_CHARGER_SHOW_PERCENTAGE := true
-
 # Hardware
 BOARD_HARDWARE_CLASS += $(LOCAL_PATH)/cmhw
 BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
 
 # Charger/Healthd
-RED_LED_PATH := "/sys/class/leds/led_r/brightness"
-GREEN_LED_PATH := "/sys/class/leds/led_g/brightness"
-BLUE_LED_PATH := "/sys/class/leds/led_b/brightness"
-BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
+WITH_LINEAGE_CHARGER := true
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGER_SHOW_PERCENTAGE := true
 CHARGING_ENABLED_PATH := /sys/class/power_supply/battery/batt_lp_charging
+#BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
 
 # blockdev --getbsz /dev/block/mmcblk0p9
 BOARD_FLASH_BLOCK_SIZE := 4096
@@ -180,3 +176,9 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
 
 # Ant+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+
+### LIGHTS
+TARGET_PROVIDES_LIBLIGHT := false
+
+# Video scaling issue workaround
+TARGET_OMX_LEGACY_RESCALING := true
